@@ -1,0 +1,47 @@
+import React from "react";
+import Toast from "react-bootstrap/Toast";
+import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { EDIT_TODO_STATUS } from "../Constants/Constants";
+
+function Task({ id, description, isDone }) {
+  const dispatch = useDispatch();
+  return (
+    <Toast
+      style={{
+        fontFamily: "Fira Code",
+        width: "100%",
+        marginBottom: "15px",
+      }}
+    >
+      <Toast.Header closeButton={false}>
+        <strong className="me-auto">Task</strong>
+        <small>
+          <Button
+            variant={isDone ? "success" : "danger"}
+            onClick={() =>
+              dispatch({
+                type: EDIT_TODO_STATUS,
+                payload: { id: id, description: description, isDone: !isDone },
+              })
+            }
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-bell-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+            </svg>
+          </Button>
+        </small>
+      </Toast.Header>
+      <Toast.Body>{description}</Toast.Body>
+    </Toast>
+  );
+}
+
+export default Task;
